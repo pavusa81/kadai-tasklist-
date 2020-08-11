@@ -9,6 +9,10 @@
             <th class="table-dark">id</th>
             <td>{{ $task->id }}</td>
         </tr>
+         <tr>
+            <th class="table-dark">ユーザー名</th>
+            <td>{{ \Auth::user()->name }}</td>
+        </tr>
         <tr>
             <th class="table-dark">ステータス</th>
             <td>{{ $task->status }}</td>

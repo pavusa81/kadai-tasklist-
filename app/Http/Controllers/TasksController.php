@@ -49,17 +49,10 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         
-<<<<<<< HEAD
         $request->user()->tasks()->create([
             'status' => $request->status,
             'content' => $request->content,
         ]);
-=======
-        $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $task->save();
->>>>>>> 133dca4130ebf5356fafae79ac3dafc4b764579a
         
         return redirect('/');
     }
@@ -74,8 +67,13 @@ class TasksController extends Controller
     {
         $task = Task::findOrFail($id);
         
+        $user = $task->user();
+        
         return view('tasks.show' , [
             'task' => $task,
+            
+            
+            
         ]);
     }
 
