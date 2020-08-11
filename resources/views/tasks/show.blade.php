@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+    @if (Auth::id() == $task->user_id)
     <h1>id = {{ $task->id }} のタスク詳細ページ</h1>
     
     <table class="table table table-bordered">
@@ -19,9 +19,12 @@
         </tr>
     </table>
     
-    {!! link_to_route('tasks.edit' , 'このタスクを編集' , ['task' => $task->id], ['class' => 'btn btn-outline-dark']) !!}
-
-    {!! Form::model($task , ['route' => ['tasks.destroy', $task->id], 'method' => 'delete']) !!}
-        {!! Form::submit('削除', ['class' => 'btn btn-outline-danger']) !!}
-    {!! Form::close() !!}
+        {!! link_to_route('tasks.edit' , 'このタスクを編集' , ['task' => $task->id], ['class' => 'btn btn-outline-dark']) !!}
+    
+        {!! Form::model($task , ['route' => ['tasks.destroy', $task->id], 'method' => 'delete']) !!}
+            {!! Form::submit('削除', ['class' => 'btn btn-outline-danger']) !!}
+        {!! Form::close() !!}
+    @else
+        @include('welcome')
+    @endif
 @endsection

@@ -15,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('id','desc')->paginate(25);
+        $tasks = Task::orderBy('id','desc')->paginate(10);
         
         return view('tasks.index',[
             'tasks' => $tasks,
@@ -49,10 +49,10 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         
-        $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $task->save();
+        $request->user()->tasks()->create([
+            'status' => $request->status,
+            'content' => $request->content,
+        ]);
         
         return redirect('/');
     }
@@ -117,11 +117,16 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        // idの値で投稿を検索して取得
         $task = Task::findOrFail($id);
-        
-        $task->delete();
-        
+
+        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
+        if (\Auth::id() === $task->user_id) {
+            $task->delete();
+        }
+
+        // 前のURLへリダイレクトさせる
         return redirect('/');
     }
 }
