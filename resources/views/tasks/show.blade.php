@@ -22,7 +22,7 @@
             <td>{{ $task->content }}</td>
         </tr>
     </table>
-    
+        {!! link_to_route('tasks.index', 'タスク一覧' , [],['class' => 'btn btn-outline-dark']) !!}
         {!! link_to_route('tasks.edit' , 'このタスクを編集' , ['task' => $task->id], ['class' => 'btn btn-outline-dark']) !!}
     
         {!! Form::model($task , ['route' => ['tasks.destroy', $task->id], 'method' => 'delete']) !!}

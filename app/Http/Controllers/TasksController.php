@@ -77,7 +77,14 @@ class TasksController extends Controller
         
         $user = $task->user();
         
-        return back();
+        if (\Auth::id() === $task->user_id) {
+            return view('tasks.show' ,[
+                'task' => $task,
+                'user' => $user,
+            ]);
+        }
+             return redirect('/');
+       
     }
 
     /**
