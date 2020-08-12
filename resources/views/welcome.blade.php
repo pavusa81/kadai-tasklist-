@@ -2,7 +2,7 @@
 
 @section('content')
     @if (Auth::check())
-        {!! link_to_route('tasks.index', 'タスク一覧' , [] , ['class' => 'btn btn-outline-dark']) !!}
+        @include('tasks.index')
     @else
         <div class="center jumbotron">
             <div class="text-center">

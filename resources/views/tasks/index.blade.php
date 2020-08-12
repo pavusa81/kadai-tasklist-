@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
     <h1>タスク一覧</h1>
     
     @if (count($tasks) > 0)
@@ -27,4 +24,3 @@
     {{ $tasks->links() }}
     
     {!! link_to_route('tasks.create', '新規タスクの登録', [], ['class' => 'btn btn-outline-dark']) !!}
-@endsection
